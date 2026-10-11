@@ -20,7 +20,9 @@ pi --model openrouter/<id>
 
 - `PI_TELEMETRY=0`: no install ping to `pi.dev/api/report-install`, no OpenRouter attribution headers.
 - `PI_SKIP_VERSION_CHECK=1`: no latest-version request to pi.dev.
-- Still enabled: model catalog refresh from pi.dev. Use `PI_OFFLINE=1` (or `--offline`) to disable all automatic network activity.
+- `PI_OFFLINE=1`: no automatic network activity (pi.dev model catalog refresh, package update checks, fd/rg downloads). New models arrive via `./pi-update.sh`, which re-hydrates model data. Run `PI_OFFLINE=0 pi` to allow a one-off catalog refresh.
+
+Verified by a network trace (2026-10-11): with these settings pi contacts only `openrouter.ai`, and only when sending a prompt. Each request carries a random per-session `x-session-id` (cache affinity) and a User-Agent with OS/arch.
 
 ## Keys
 

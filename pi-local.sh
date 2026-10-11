@@ -22,8 +22,11 @@ fi
 # Privacy defaults; override by setting them before calling.
 # PI_TELEMETRY=0: no install ping to pi.dev, no provider attribution headers.
 # PI_SKIP_VERSION_CHECK=1: no latest-version request to pi.dev.
+# PI_OFFLINE=1: no automatic network activity (pi.dev model catalog refresh, package
+#   update checks, fd/rg downloads). Model data comes from the checkout, refreshed by pi-update.sh.
 export PI_TELEMETRY="${PI_TELEMETRY:-0}"
 export PI_SKIP_VERSION_CHECK="${PI_SKIP_VERSION_CHECK:-1}"
+export PI_OFFLINE="${PI_OFFLINE:-1}"
 
 RESOLVER_URL="$(node -p 'require("node:url").pathToFileURL(process.argv[1]).href' "$REPO_DIR/packages/coding-agent/src/experimental/source-resolver.ts")"
 exec node --disable-warning=ExperimentalWarning --import "$RESOLVER_URL" "$REPO_DIR/packages/coding-agent/src/experimental/cli.ts" "$@"
